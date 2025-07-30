@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Ficha de Ordem Paranormal</title>
+
+  <style>
+
+    body {
+
+      font-family: sans-serif;
+
+      background: #1e1e1e;
+
+      color: #fdfcfc;
+
+      padding: 20px;
+
+    }
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      margin-bottom: 20px;
+
+    }
+
+    th, td {
+
+      padding: 8px 12px;
+
+      border-bottom: 1px solid #444;
+
+    }
+
+    th {
+
+      background: #bd6868;
+
+    }
+
+    td span {
+
+      cursor: pointer;
+
+      color: #61dafb;
+
+    }
+
+    td span:hover {
+
+      text-decoration: underline;
+
+    }
+
+    #resultado {
+
+      font-size: 1.2em;
+
+      margin-top: 20px;
+
+      padding: 10px;
+
+      background: #080808;
+
+      border-radius: 8px;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Ficha de Perícias — Ordem Paranormal</h1>
+
+
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>Atributo</th>
+
+        <th>Perícia</th>
+
+        <th>Descrição</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="tabela-pericias">
+
+      <!-- Preenchido via JavaScript -->
+
+    </tbody>
+
+  </table>
+
+
+
+  <div id="resultado">Clique em uma perícia para rolar o dado.</div>
+
+
+
+  <script>
+
+    const pericias = [
+
+      // Força
+
+      { atributo: "Força", nome: "Luta", desc: "Combate corpo a corpo.", mod: 0 },
+
+      { atributo: "Força", nome: "Empunhadura", desc: "Armas brancas, como Facas ou Espadas.", mod: 0 },
+
+      { atributo: "Força", nome: "Arrombamento", desc: "Abrir fechaduras, Forçar porta.", mod: 0 },
+
+      { atributo: "Força", nome: "Atletismo", desc: "Correr, Saltar, Escalar, Nadar.", mod: 0 },
+
+
+
+
+
+      // Agilidade
+
+      { atributo: "Agilidade", nome: "Acrobacia", desc: "Manobras, equilíbrio.", mod: 0 },
+
+      { atributo: "Agilidade", nome: "Furtividade", desc: "Se mover sem ser visto.", mod: 0 },
+
+      { atributo: "Agilidade", nome: "Iniciativa", desc: "Agir primeiro no combate.", mod: 0 },
+
+      { atributo: "Agilidade", nome: "Pontaria", desc: "Ataques à distância.", mod: 0 },
+
+      { atributo: "Agilidade", nome: "Reflexos", desc: "Esquivar de ataques.", mod: 0 },
+
+      { atributo: "Agilidade", nome: "Pilotagem", desc: "Condução de veículos.", mod: 0 },
+
+      { atributo: "Agilidade", nome: "Destreza", desc: "Agilidade, Coordenação, Reflexos e Equilíbrio do personagem.", mod: 0 },
+
+    
+
+      // Vigor
+
+      { atributo: "Vigor", nome: "Fortitude", desc: "Representa a resistência física e mental do personagem.", mod: 0 },
+
+
+
+      // Intelecto
+
+      { atributo: "Intelecto", nome: "Ciências", desc: "Conhecimentos médicos e técnicos.", mod: 0 },
+
+      { atributo: "Intelecto", nome: "Investigação", desc: "Buscar pistas e padrões.", mod: 0 },
+
+      { atributo: "Intelecto", nome: "Ocultismo", desc: "Conhecimento paranormal.", mod: 0 },
+
+      { atributo: "Intelecto", nome: "Raciocínio", desc: "Resolver enigmas e lógica.", mod: 0 },
+
+      { atributo: "Intelecto", nome: "Tecnologia", desc: "Hackear, usar máquinas.", mod: 0 },
+
+      { atributo: "Intelecto", nome: "Tática", desc: "Planejamento estratégico.", mod: 0 },
+
+      { atributo: "Intelecto", nome: "Medicina", desc: "Tratar doenças e ferimentos.", mod: 0 },
+
+
+
+      // Vontade
+
+      { atributo: "Vontade", nome: "Concentração", desc: "Manter foco mental.", mod: 0 },
+
+      { atributo: "Vontade", nome: "Fortitude", desc: "Resistência física e mental.", mod: 0 },
+
+      { atributo: "Vontade", nome: "Intuição", desc: "Pressentir intenções.", mod: 0 },
+
+      { atributo: "Vontade", nome: "Escutar", desc: "Ouvir algo.", mod: 0 },
+
+      
+
+
+
+      // Presença
+
+      { atributo: "Presença", nome: "Adestramento", desc: "Lidar com animais.", mod: 0 },
+
+      { atributo: "Presença", nome: "Enganação", desc: "Mentir, disfarçar.", mod: 0 },
+
+      { atributo: "Presença", nome: "Intimidação", desc: "Assustar, impor respeito.", mod: 0 },
+
+      { atributo: "Presença", nome: "Manipulação", desc: "Persuadir, negociar.", mod: 0 },
+
+      { atributo: "Presença", nome: "Performance", desc: "Atuar, entreter.", mod: 0 },
+
+      { atributo: "Presença", nome: "Diplomacia", desc: "Liderar, resolver conflitos.", mod: 0 },
+
+      { atributo: "Presença", nome: "Charme", desc: " influenciar outras pessoas ou criaturas.", mod: 0 },
+
+
+
+      // Extras
+
+      { atributo: "Percepção", nome: "Encontrar", desc: "Achar pistas, detalhes.", mod: 0 },
+
+      { atributo: "Percepção", nome: "Percepção", desc: "Notar mudanças e ruídos.", mod: 0 },
+
+      { atributo: "Defesa", nome: "Esquiva", desc: "Evitar ataques.", mod: 0 },
+
+      { atributo: "Defesa", nome: "Contra-Ataque ", desc: "devolver o dano.", mod: 0 },
+
+      
+
+    ];
+
+
+
+    const tabela = document.getElementById("tabela-pericias");
+
+    const resultado = document.getElementById("resultado");
+
+
+
+    pericias.forEach(pericia => {
+
+      const linha = document.createElement("tr");
+
+
+
+      linha.innerHTML = `
+
+        <td>${pericia.atributo}</td>
+
+        <td><span onclick="rolarDado('${pericia.nome}', ${pericia.mod})">${pericia.nome}</span></td>
+
+        <td>${pericia.desc}</td>
+
+      `;
+
+
+
+      tabela.appendChild(linha);
+
+     });
+
+
+
+    function rolarDado(nome, mod) {
+
+      const d20 = Math.floor(Math.random() * 20) + 1;
+
+      const total = d20 + mod;
+
+
+
+      function rolarDado(Sanidade, mod) {
+
+      const d100 = Math.floor(Math.random() * 100) + 1;
+
+      const total = d100 + mod; }
+
+
+
+
+
+      let resultadoTexto = "";
+
+
+
+      if (d20 <= 9) {
+
+        resultadoTexto = "💀 Fracasso";
+
+      } else if (d20 <= 14) {
+
+        resultadoTexto = "😐 Sucesso normal";
+
+      } else if (d20 <= 18) {
+
+        resultadoTexto = "💪 Sucesso bom";
+
+      } else {
+
+        resultadoTexto = "🌟 Sucesso extremo";
+
+      }
+
+
+
+      resultado.innerHTML = `🎲 Você rolou <strong>${nome}</strong>: <strong>${d20}</strong> + ${mod} = <strong>${total}</strong> → <strong>${resultadoTexto}</strong>`;
+
+    }
+
+  </script>
+
+</body>
+
+</html>
